@@ -16,7 +16,7 @@ def fetch_friends(login, password):
         )
         vk_api = vk.API(session)
     except vk.exceptions.VkAuthError:
-        return {'error': {'error_msg': 'Incorrect login or password'}}
+        return {'error': {'error_msg': 'Incorrect login or password'}}  # because other vk exceptions look like this
     friends_response = vk_api.friends.get(fields='id')
     return friends_response
 
