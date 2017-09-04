@@ -1,32 +1,28 @@
 import vk
+import vk.exceptions
+
+from getpass import getpass
 
 
-APP_ID = -1  # чтобы получить app_id, нужно зарегистрировать своё приложение на https://vk.com/dev
-
-
-def get_user_login():
-    pass
-
-
-def get_user_password():
-    pass
-
-
-def get_online_friends(login, password):
+def fetch_friends(login, password):
     session = vk.AuthSession(
-        app_id=APP_ID,
+        app_id=6173123,  # магическое число
         user_login=login,
         user_password=password,
     )
-    api = vk.API(session)
-    # например, api.friends.get()
+    vk_api = vk.API(session)
+    friends_response = vk_api.friends.get(fields='id')
+    if 'error' in friends_response:
+        return friends_response
+    return [friend for friend in friends_response if friend['online']]
 
-
-def output_friends_to_console(friends_online):
-    pass
 
 if __name__ == '__main__':
-    login = get_user_login()
-    password = get_user_password()
-    friends_online = get_online_friends(login, password)
-    output_friends_to_console(friends_online)
+    login = input('Login:')
+    password = getpass('Password (would be invisible):')
+    friends_response = fetch_friends(login, password)
+    if 'error' in friends_response:
+        print(friends_response['error']['error_msg'])
+        raise SystemExit
+    for friend in friends_response:
+        print(friend['first_name'], friend['last_name'])
