@@ -20,8 +20,11 @@ How to do this on [Windows 10](https://superuser.com/questions/949560/how-do-i-s
   ```$ python3 vk_friends_online.py 
   Login: <your login>  
   Password (would be invisible): <your password>
-  Влад Агафонов
+  Your pc-online friends:
   Илья Осипов
+  Your mobile-online friends:
+  Влад Агафонов
+  Инна Шарудина
   ```
 
 
